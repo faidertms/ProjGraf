@@ -3,11 +3,12 @@ public class MatrizAdj {
 	private Lista<Vertice> vertices = new Lista<Vertice>();
 	private Lista<Aresta> ruas = new Lista<Aresta>();
 	private int numVertices;
-
+	int contador;
 	public MatrizAdj(int numVertices) {
 		super();
 		this.matrizAdj = new int[numVertices][numVertices];
 		this.numVertices = numVertices;
+		contador = 0;
 		for (int i = 0; i < this.numVertices; i++) {
 			for (int j = 0; j < this.numVertices; j++) {
 				this.matrizAdj[i][j] = 0;
@@ -15,9 +16,10 @@ public class MatrizAdj {
 		}
 	}
 
-	public void inserirVertice(String ruaHorizontal, String ruaVertical, int peso, int id) {
-		Vertice v = new Vertice(id, peso, ruaVertical, ruaHorizontal);
+	public void inserirVertice(String ruaHorizontal, String ruaVertical, int peso) {
+		Vertice v = new Vertice (peso,contador, ruaVertical, ruaHorizontal);
 		vertices.inserir(v);
+		contador++;
 		// vertices.imprimirLista();
 	}
 
@@ -30,7 +32,8 @@ public class MatrizAdj {
 			for (int j = 0; j < numVertices; j++) {
 				this.matrizAdj[v.getId()][j] = 0;
 			}
-			vertices.remover(new Vertice(ruaVertical, ruaHorizontal)); // tenho
+			vertices.remover(new Vertice(ruaVertical, ruaHorizontal));
+			contador --;// tenho
 																		// que
 																		// visualizar
 		}
@@ -65,11 +68,16 @@ public class MatrizAdj {
 	}
 
 	public void imprimirGrafo() {
-		String temp;
-		System.out.println("Legenda: Não existe = -1 | Qualquer outro valor é o peso da Aresta");
-		for (int i = 0; i < this.numVertices; i++) {
-			temp = "Vertice " + i + ": ";
-			for (int j = 0; j < this.numVertices; j++) {
+		String temp = "   ";
+		System.out.println("Legenda: Não existe = 0 | Qualquer outro valor é o numero de Aresta");
+		for (int i = 0; i < this.contador; i++) {
+			temp += i + "    ";
+		}
+		System.out.println(temp);
+		System.out.println("-----------------------");
+		for (int i = 0; i < this.contador; i++) {
+			temp = i + " | " ; //+ vertices.obterPosição(i+1).getRuaHorizontal()+"/"+ vertices.obterPosição(i+1).getRuaVertical() + ": ";
+			for (int j = 0; j < this.contador; j++) {
 				temp += this.matrizAdj[i][j] + " , ";
 			}
 			System.out.println(temp);
