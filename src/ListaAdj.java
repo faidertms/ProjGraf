@@ -7,6 +7,7 @@ public class ListaAdj {
 		Vertice v = new Vertice(id, peso, ruaVertical, ruaHorizontal);
 		vertices.inserir(v);
 		// vertices.imprimirLista();
+
 	}
 
 	public void inserirAresta(String ruaHorizontal, String ruaVertical, String ruaHorizontal2, String ruaVertical2) {

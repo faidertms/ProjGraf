@@ -57,7 +57,7 @@ public class Lista<T> {
 		No<T> aux = inicial;
 		while (aux != null) {
 			if (aux.getnumero().equals(p)) {
-				break;
+				return aux.getnumero();
 			} else if (aux.getproximo() == null) {
 				System.out.println("Elemento não existe");
 				//aux = null; // faz o tratamento no programa
@@ -68,7 +68,7 @@ public class Lista<T> {
 			}
 
 		}
-		return aux.getnumero();
+		return null;
 	}
 
 	public void remover(T p) {

@@ -1,41 +1,37 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Inicio {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		// seleciona o tipo de estrutura
+		// puxa os dados ja existente pra estrutura
+		// inicia a interface grafica de adcionar / remover
+		MatrizAdj graf = new MatrizAdj(8);
+	       StringBuilder sql = new StringBuilder();
+	        sql.append("SELECT *");
+	        sql.append("FROM vertices;");
+	        /* Abre a conexão que criamos o retorno é armazenado na variavel conn */
+	        Connection conn = Conexao.abrir();
+
+	        /* Mapeamento objeto relacional */
+	        PreparedStatement comando = conn.prepareStatement(sql.toString());
+			ResultSet resultado = comando.executeQuery();
+			 while (resultado.next()) {
+				 graf.inserirVertice(resultado.getInt("peso"),resultado.getString("ruaHorizontal"), resultado.getString("ruaVertical"));
+			 }
+			 graf.imprimirGrafo();
 		
 		
-		MatrizAdj graf = new MatrizAdj(4);
-		graf.inserirVertice("Av.Dom Luis", "Osvaldo Cruz", 4);
-		graf.inserirVertice("Rua Marcos Macedo", "Osvaldo Cruz", 1);
-		graf.inserirVertice("Rua Pereira Valente", "Osvaldo Cruz", 1);
+		//graf.inserirVertice("Av.Dom Luis", "Osvaldo Cruz", 4);
+		//graf.inserirVertice("Rua Marcos Macedo", "Osvaldo Cruz", 1);
+		//graf.inserirVertice("Rua Pereira Valente", "Osvaldo Cruz", 1);
 		graf.insereAresta("Av.Dom Luis", "Osvaldo Cruz","Rua Marcos Macedo", "Osvaldo Cruz");
 		graf.imprimirGrafo();
 		
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT id,ruaHorizontal,ruaVertical,peso");
-        sql.append("FROM vertices ");
-        sql.append("ORDER BY id ");
-
-        /* Abre a conexão que criamos o retorno é armazenado na variavel conn */
-        Connection conn = Conexao.abrir();
-
-        /* Mapeamento objeto relacional */
-        PreparedStatement comando = conn.prepareStatement(sql.toString());
-		ResultSet resultado = comando.executeQuery();
-		 while (resultado.next()) {
-			 graf.inserirVertice(resultado.getString("ruaHorizontal"), resultado.getString("ruaVertical"), resultado.getInt("peso"));
-	            /* Cria um objeto para armazenar uma linha da consulta */
-	            //Cliente linha = new Cliente();
-	           // linha.setCodigoCliente(resultado.getInt("id"));
-	           // linha.setNomeCliente(resultado.getString("ruaHorizontal"));
-	           // linha.setIdadeCliente(resultado.getInt("ruaVertical"));
-	           // resultado.getInt("peso")
-	            /* Armazena a linha lida em uma lista */
-	           // lista.add(linha);
-	     //   }
+ 
 		
 		/*ListaAdj graf = new ListaAdj();
 		graf.inserirVertice("Thiago");
@@ -71,6 +67,6 @@ public class Inicio {
 		
 		System.out.println(l.encontrarElemento(t2));
 		l.imprimirLista();*/
-	}
 
+}
 }
