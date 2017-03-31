@@ -1,13 +1,31 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class ListaAdj {
 
 	private Lista<Vertice> vertices = new Lista<Vertice>();
 	private Lista<Aresta> ruas = new Lista<Aresta>();
+	int contador;
 
-	public void inserirVertice(String ruaHorizontal, String ruaVertical, int peso, int id) {
-		Vertice v = new Vertice(id, peso, ruaVertical, ruaHorizontal);
+	public void inserirVertice(String ruaHorizontal, String ruaVertical, int peso) throws Exception { // esse é usado pelo interf
+		Vertice v = new Vertice(contador, peso, ruaVertical, ruaHorizontal);
 		vertices.inserir(v);
+		contador++;
+		String sql = "INSERT INTO `grafo`.`vertices` (`id`, `ruaHorizontal`, `ruaVertical`, `peso`) VALUES("+contador+"," + "'"+ruaHorizontal+ "'" +"," +"'"+ ruaVertical+"'" +" ,"+"'" + peso +"'"+");";
+		//Prepara a instrução SQL
+		Connection conn = Conexao.abrir();
+        /* Mapeamento objeto relacional */
+        PreparedStatement comando = conn.prepareStatement(sql);
+		//Executa a instrução SQL
+		comando.execute();
 		// vertices.imprimirLista();
-
+	}
+	
+	public void inserirVertice(int peso, String ruaHorizontal, String ruaVertical) { // esse pelo sql
+		Vertice v = new Vertice (peso,contador, ruaVertical, ruaHorizontal);
+		vertices.inserir(v);
+		contador++;
 	}
 
 	public void inserirAresta(String ruaHorizontal, String ruaVertical, String ruaHorizontal2, String ruaVertical2) {
