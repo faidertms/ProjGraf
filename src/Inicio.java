@@ -4,31 +4,38 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Inicio {
-
+	static Busca b = new Busca();
 	public static void main(String[] args) throws Exception {
 		// seleciona o tipo de estrutura
 		// puxa os dados ja existente pra estrutura
 		// inicia a interface grafica de adcionar / remover
 		MatrizAdj graf = new MatrizAdj(8);
-	       StringBuilder sql = new StringBuilder();
+	      /*StringBuilder sql = new StringBuilder();
 	        sql.append("SELECT *");
 	        sql.append("FROM vertices;");
-	        /* Abre a conexão que criamos o retorno é armazenado na variavel conn */
-	        Connection conn = Conexao.abrir();
-
-	        /* Mapeamento objeto relacional */
-	        PreparedStatement comando = conn.prepareStatement(sql.toString());
+	         //Abre a conexão que criamos o retorno é armazenado na variavel conn */
+	
+	        /*PreparedStatement comando = conn.prepareStatement(sql.toString());
 			ResultSet resultado = comando.executeQuery();
 			 while (resultado.next()) {
 				 graf.inserirVertice(resultado.getInt("peso"),resultado.getString("ruaHorizontal"), resultado.getString("ruaVertical"));
 			 }
-			 graf.imprimirGrafo();
+			 graf.imprimirGrafo();*/
 		
-		
-		//graf.inserirVertice("Av.Dom Luis", "Osvaldo Cruz", 4);
-		//graf.inserirVertice("Rua Marcos Macedo", "Osvaldo Cruz", 1);
-		//graf.inserirVertice("Rua Pereira Valente", "Osvaldo Cruz", 1);
-		graf.insereAresta("Av.Dom Luis", "Osvaldo Cruz","Rua Marcos Macedo", "Osvaldo Cruz");
+		//(int peso, String ruaHorizontal, String ruaVertical,int id)
+		graf.inserirVertice(4,"Av.Dom Luis", "Osvaldo Cruz", 1);
+		graf.inserirVertice(8,"Rua Marcos Macedo", "Osvaldo Cruz", 2);
+		graf.inserirVertice(6,"Rua Pereira Valente", "Osvaldo Cruz", 3);
+		graf.inserirVertice(0,"Rua Pereira Valene", "Osvaldo ruz", 4);
+		graf.inserirVertice(0,"Rua Pereira Valene", "Osvaldo ruz", 5);
+		graf.insereArestaSql(1,2);
+		graf.insereArestaSql(1,3);
+		graf.insereArestaSql(2, 3);
+		graf.insereArestaSql(2,4);
+		graf.insereArestaSql(5,4);
+		graf.insereArestaSql(3,5);
+		//graf.insereArestaSql(4,3);
+		b.Dijktra(graf, 1);
 		graf.imprimirGrafo();
 		
  

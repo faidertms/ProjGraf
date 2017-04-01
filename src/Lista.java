@@ -71,23 +71,25 @@ public class Lista<T> {
 		return null;
 	}
 
-	public void remover(T p) {
+	public boolean remover(T p) {
 		No<T> aux = inicial;
 		No<T> aux2 = null;
+		if(inicial !=null){
 		if (inicial.getnumero().equals(p)) {
 			inicial = inicial.getproximo();
 			nelementos--;
+			return true;
 		} else {
 			while (aux != null) {
 				if (aux.getnumero().equals(p)) {
 					if (aux.getproximo() == null) {
 						nelementos--;
 						aux2.setproximo(null);
-						break;
+						return true;
 					} else {
 						aux2.setproximo(aux.getproximo());
 						nelementos--;
-						break;
+						return true;
 					}
 				} else {
 					aux2 = aux;
@@ -95,6 +97,8 @@ public class Lista<T> {
 				}
 			}
 		}
+		}
+		return false;
 	}
 
 	public T obterPosição(int n) {
@@ -126,5 +130,9 @@ public class Lista<T> {
 		System.out.println("Elemento Não Encontrado");
 		return -1;
 	}
-
+	
+	public void zerarLista(){
+		inicial = null;
+		nelementos = 0;
+	}
 }
